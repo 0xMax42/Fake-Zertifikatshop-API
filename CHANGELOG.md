@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### 🚀 Features
 
+- *(config)* Enhance production server configuration - (e0b5ff1)
 - *(workflows)* Add nightly Docker build and push workflow - (5b82a24)
 
 ### 🐛 Bug Fixes
