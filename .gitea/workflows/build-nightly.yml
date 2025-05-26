@@ -1,0 +1,49 @@
+name: Build and Push Fake-Zertifikatshop-API
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Restore Docker cache
+        uses: https://git.0xmax42.io/actions/cache@v1
+        with:
+          key: buildx-${{ github.ref_name }}
+          paths: |
+            /tmp/.buildx-cache
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker-container
+          install: true
+          buildkitd-flags: --debug
+
+      - name: Login to Gitea Docker Registry
+        env:
+          REGISTRY: git.0xmax42.io
+          USERNAME: ${{ secrets.PACKAGE_USER }}
+          PASSWORD: ${{ secrets.PACKAGE_TOKEN }}
+        run: |
+          echo "$PASSWORD" | docker login $REGISTRY --username "$USERNAME" --password-stdin
+
+      - name: Build Docker Image
+        run: |
+          docker buildx build \
+            --tag git.0xmax42.io/maxp/Fake-Zertifikatshop-API:nightly \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
+            --builder ${{ steps.buildx.outputs.name }} \
+            --push \
+            --progress=plain \
+            .
