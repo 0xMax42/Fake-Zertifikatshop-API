@@ -2,12 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.3.1] - 2025-05-26
 
 ### 🚀 Features
 
+- *(seed)* Add new product certifications - (386854b)
+- *(backend)* Add stock management for products - (2424118)
+- *(api)* Add OpenAPI 3.0 specification for product management - (d10c2c1)
 - *(admin)* Add basic authentication and admin setup - (4dea2a6)
 - *(dependencies)* Add sqladmin with full extras and related deps - (e29c232)
+
+### 🚜 Refactor
+
+- *(cliff)* Simplify template logic and align formatting - (a78b404)
+
+### 📚 Documentation
+
+- *(readme)* Add note on configuring admin credentials - (1225a8e)
 
 ## [0.2.0] - 2025-05-26
 
