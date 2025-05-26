@@ -3,6 +3,8 @@ info:
   title: Fake-Zertifikatshop API
   version: "1.0"
 servers:
+  - url: https://fake-zertifikatshop-api.0xmax42.io
+    description: Production server
   - url: http://localhost:8000
     description: Local development server
 paths:
