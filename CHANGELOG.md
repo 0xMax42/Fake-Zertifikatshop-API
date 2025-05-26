@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚀 Features
+
+- *(workflows)* Add nightly Docker build and push workflow - (5b82a24)
+
 ## [0.3.1] - 2025-05-26
 
 ### 🚀 Features
