@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### 🚀 Features
 
+- *(api)* Add production server to OpenAPI spec - (58884d9)
 - *(backend)* Add custom Swagger UI and static file serving - (142b7c6)
 - *(docker)* Add example docker-compose configuration - (45868c1)
 
