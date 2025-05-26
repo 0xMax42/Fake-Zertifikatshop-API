@@ -23,7 +23,17 @@ def seed_products():
             ("Meeting-Überlebender", "Für Sitzungs-Veteranen",
              "Bestätigt, dass du mindestens 50 sinnlose Meetings überlebt hast.", 5, 20.00),
             ("Excel-Zauberer", "Für Tabellenkünstler",
-             "Dieses Zertifikat ehrt deine Fähigkeit, Excel-Tabellen mit Magie zu füllen.", 15, 17.49)
+             "Dieses Zertifikat ehrt deine Fähigkeit, Excel-Tabellen mit Magie zu füllen.", 15, 17.49),
+            ("Kaffee-Jongleur", "Meistert 3 Kaffees gleichzeitig",
+            "Dieses Zertifikat bescheinigt, dass du fähig bist, 3 Kaffeebecher gleichzeitig zu balancieren – ohne einen Tropfen zu verschütten.", 12, 9.99),
+            ("To-Do-Listen-Titan", "Erstellt Listen in Listen in Listen",
+            "Für diejenigen, die es lieben, Aufgabenlisten für Aufgabenlisten zu machen.", 30, 8.50),
+            ("Mikrowellen-Magier", "Zauberer des schnellen Aufwärmens",
+            "Dieses Zertifikat verleiht dir die Macht, jedes Gericht in unter 2 Minuten aufzuwärmen – mit Präzision und Stil.", 18, 11.11),
+            ("Multitasking-Meister", "Arbeitet an 5 Projekten gleichzeitig",
+            "Bescheinigt, dass du mindestens 5 Browser-Tabs offen hast und alle gleichzeitig bedienen kannst.", 25, 13.33),
+            ("Copy-Paste-König", "Copy & Paste in Perfektion",
+            "Dieses Zertifikat ehrt deine unvergleichliche Fähigkeit, Code und Texte von StackOverflow zu kopieren und wie neu aussehen zu lassen.", 40, 7.77)
         ]
 
         for name, short_desc, full_desc, quantity, price in products:
