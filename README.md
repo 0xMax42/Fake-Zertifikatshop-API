@@ -88,6 +88,12 @@ docker run --rm -it -p 8000:8000 Fake-Zertifikatshop-API
 
 Die API ist dann unter [http://localhost:8000](http://localhost:8000) erreichbar.
 
+> **Hinweis:** Beim Starten des Containers können die Umgebungsvariablen `VALID_USERNAME` und `VALID_PASSWORD` gesetzt werden, um die Zugangsdaten für das Admin-Panel zu konfigurieren. Beispiel:
+
+```bash
+docker run --rm -it -p 8000:8000 -e VALID_USERNAME=admin -e VALID_PASSWORD=secret Fake-Zertifikatshop-API
+```
+
 ---
 
 ### 6. Changelog generieren (optional)
