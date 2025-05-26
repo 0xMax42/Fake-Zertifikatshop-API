@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚀 Features
+
+- *(admin)* Add basic authentication and admin setup - (4dea2a6)
+- *(dependencies)* Add sqladmin with full extras and related deps - (e29c232)
+
 ## [0.2.0] - 2025-05-26
 
 ### 🚀 Features
