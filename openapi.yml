@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Fake-Zertifikatshop API
+  version: "1.0"
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+paths:
+  /api/products/:
+    get:
+      summary: Retrieve a list of all products
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductRead"
+  /api/products/{product_id}:
+    get:
+      summary: Retrieve a product by its ID
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductRead"
+        "404":
+          description: Product not found
+  /api/products/create/:
+    post:
+      summary: Create a new product and its stock
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreate"
+      responses:
+        "200":
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductRead"
+  /api/products/{product_id}/:
+    put:
+      summary: Update an existing product and its stock
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreate"
+      responses:
+        "200":
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductRead"
+        "404":
+          description: Product not found
+    delete:
+      summary: Delete a product and its associated stock
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+        "404":
+          description: Product not found
+components:
+  schemas:
+    Stock:
+      type: object
+      properties:
+        quantity:
+          type: integer
+    ProductBase:
+      type: object
+      properties:
+        name:
+          type: string
+        short_description:
+          type: string
+        product_description:
+          type: string
+        price:
+          type: number
+          format: float
+    ProductCreate:
+      allOf:
+        - $ref: "#/components/schemas/ProductBase"
+        - type: object
+          properties:
+            stock:
+              $ref: "#/components/schemas/Stock"
+    ProductRead:
+      allOf:
+        - $ref: "#/components/schemas/ProductBase"
+        - type: object
+          properties:
+            id:
+              type: integer
+            stock:
+              $ref: "#/components/schemas/Stock"
