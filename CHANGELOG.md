@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - *(workflows)* Add sync release to GitHub action - (07e9133)
 
+### 📚 Documentation
+
+- *(readme)* Update author names with GitHub links - (2008745)
+
 ## [0.4.1] - 2025-05-26
 
 ### 🚀 Features
