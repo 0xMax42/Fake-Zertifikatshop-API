@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.4.0] - 2025-05-26
 
 ### 🚀 Features
 
+- *(workflows)* Add release workflow and enhance nightly build - (d1c4001)
 - *(config)* Enhance production server configuration - (e0b5ff1)
 - *(workflows)* Add nightly Docker build and push workflow - (5b82a24)
 
