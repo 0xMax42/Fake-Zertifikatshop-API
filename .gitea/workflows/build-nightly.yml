@@ -40,7 +40,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker buildx build \
-            --tag git.0xmax42.io/maxp/Fake-Zertifikatshop-API:nightly \
+            --tag git.0xmax42.io/maxp/fake-zertifikatshop-api:nightly \
             --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
             --builder ${{ steps.buildx.outputs.name }} \
