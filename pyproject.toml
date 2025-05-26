@@ -1,0 +1,29 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = [{ name = "0xMax42" }, { name = "Gespensterkind" }]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "fastapi[standard] (>=0.115.12,<0.116.0)",
+    "sqlmodel (>=0.0.24,<0.0.25)",
+]
+
+[tool.poetry]
+packages = [{ include = "backend", from = "src" }]
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.14.1"
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+serve = "PYTHONPATH=src uvicorn src.backend.main:app --reload"
+serve_prod = "PYTHONPATH=src uvicorn backend.main:app --host 0.0.0.0 --port 8000"
+init-db = "PYTHONPATH=src python -c 'from backend.database import init_db; init_db()'"
+test = "PYTHONPATH=src pytest -W ignore::DeprecationWarning"
+seed = "PYTHONPATH=src python src/backend/seed.py"
