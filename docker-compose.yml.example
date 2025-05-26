@@ -1,0 +1,40 @@
+services:
+  api:
+    image: git.0xmax42.io/maxp/fake-zertifikatshop-api:latest
+    container_name: fake-zertifikatshop-api
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=fake_zertifikatshop_api_api_proxy"
+      # HTTP Router
+      - "traefik.http.routers.fake-zertifikatshop-api.entrypoints=https"
+      - "traefik.http.routers.fake-zertifikatshop-api.tls=true"
+      - "traefik.http.routers.fake-zertifikatshop-api.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.fake-zertifikatshop-api.rule=Host(`fake-zertifikatshop-api.0xmax42.io`)"
+      - "traefik.http.routers.fake-zertifikatshop-api.middlewares=corsHeaders,forwarded-headers"
+      - "traefik.http.services.fake-zertifikatshop-api.loadbalancer.server.port=8000"
+      # Reverse Proxy Headers
+      - "traefik.http.middlewares.forwarded-headers.headers.customRequestHeaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.forwarded-headers.headers.customRequestHeaders.X-Forwarded-Host=fake-zertifikatshop-api.0xmax42.io"
+      - "traefik.http.middlewares.forwarded-headers.headers.customRequestHeaders.X-Forwarded-Port=443"
+      # CORS Headers
+      - "traefik.http.middlewares.corsHeaders.headers.accessControlAllowOriginList=https://fake-zertifikatshop-api.0xmax42.io"
+      - "traefik.http.middlewares.corsHeaders.headers.accessControlAllowMethods=GET,POST,PUT,DELETE,OPTIONS"
+      - "traefik.http.middlewares.corsHeaders.headers.accessControlAllowHeaders=*"
+      - "traefik.http.middlewares.corsHeaders.headers.accessControlAllowCredentials=true"
+      - "traefik.http.middlewares.corsHeaders.headers.addVaryHeader=true"
+      - "traefik.http.middlewares.corsHeaders.headers.customResponseHeaders.Access-Control-Allow-Origin=https://fake-zertifikatshop-api.0xmax42.io"
+      - "traefik.http.middlewares.corsHeaders.headers.customResponseHeaders.Access-Control-Allow-Methods=GET,POST,PUT,DELETE,OPTIONS"
+      - "traefik.http.middlewares.corsHeaders.headers.customResponseHeaders.Access-Control-Allow-Headers=*"
+      - "traefik.http.middlewares.corsHeaders.headers.customResponseHeaders.Access-Control-Allow-Credentials=true"
+      # Auto Update
+      - "com.centurylinklabs.watchtower.enable=true"
+    environment:
+      - VALID_USERNAME=admin
+      - VALID_PASSWORD=fakesecret
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: "fake_zertifikatshop_api_api_proxy"
