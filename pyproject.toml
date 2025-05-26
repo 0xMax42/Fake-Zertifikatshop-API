@@ -1,6 +1,6 @@
 [project]
 name = "Fake-Zertifikatshop-API"
-version = "0.4.0"
+version = "0.4.1"
 description = ""
 authors = [{ name = "0xMax42" }, { name = "Gespensterkind" }]
 readme = "README.md"
