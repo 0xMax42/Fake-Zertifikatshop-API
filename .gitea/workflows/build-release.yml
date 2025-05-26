@@ -1,23 +1,26 @@
-name: Build and Push Fake-Zertifikatshop-API (nightly) Image
+name: Build and Push Fake-Zertifikatshop-API (release) Image
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-22.04
+  upload-assets:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Get Release ID from tag
+        run: .gitea/scripts/get-release-id.sh "${{ github.event.release.tag_name }}"
 
       - name: Restore Docker cache
         uses: https://git.0xmax42.io/actions/cache@v1
         with:
-          key: buildx-${{ github.ref_name }}
+          key: buildx-main
           paths: |
             /tmp/.buildx-cache
 
@@ -40,7 +43,8 @@ jobs:
       - name: Build Docker Image
         run: |
           docker buildx build \
-            --tag git.0xmax42.io/maxp/fake-zertifikatshop-api:nightly \
+            --tag git.0xmax42.io/maxp/fake-zertifikatshop-api:${{ github.event.release.tag_name }} \
+            --tag git.0xmax42.io/maxp/fake-zertifikatshop-api:latest \
             --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
             --builder ${{ steps.buildx.outputs.name }} \
