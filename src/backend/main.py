@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from backend.admin import setup_admin
 from backend.models import Product, ProductCreate, ProductRead, Stock
 from sqlmodel import select, Session
 from backend.database import get_session, init_db
 from typing import List, AsyncGenerator
+from fastapi.openapi.docs import get_swagger_ui_html
 
 # Main application file for the Fake-Zertifikatshop API
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -16,7 +18,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     init_db()
     yield
 
-app = FastAPI(title="Fake-Zertifikatshop API", lifespan=lifespan)  # type: ignore
+app = FastAPI(title="Fake-Zertifikatshop API", lifespan=lifespan, docs_url=None)  # type: ignore
+
+# Admin setup for the FastAPI application
 setup_admin(app)
 
 # Middleware to handle CORS (Cross-Origin Resource Sharing)
@@ -26,6 +30,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add custom openapi documentation URL
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Custom Swagger UI HTML endpoint to serve OpenAPI documentation
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url="/static/openapi.yml",
+        title="OpenAPI documentation",
+        swagger_js_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js",
+        swagger_css_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css",
+    )
 
 # API routes for managing products
 @app.get("/api/products/", response_model=List[ProductRead])
