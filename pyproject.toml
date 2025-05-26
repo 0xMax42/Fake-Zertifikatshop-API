@@ -1,5 +1,5 @@
 [project]
-name = "backend"
+name = "Fake-Zertifikatshop-API"
 version = "0.1.0"
 description = ""
 authors = [{ name = "0xMax42" }, { name = "Gespensterkind" }]
