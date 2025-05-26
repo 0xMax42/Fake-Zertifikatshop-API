@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚀 Features
+
+- *(workflows)* Add sync release to GitHub action - (07e9133)
+
 ## [0.4.1] - 2025-05-26
 
 ### 🚀 Features
