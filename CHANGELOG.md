@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚀 Features
+
+- *(docker)* Add example docker-compose configuration - (45868c1)
+
 ## [0.4.0] - 2025-05-26
 
 ### 🚀 Features
