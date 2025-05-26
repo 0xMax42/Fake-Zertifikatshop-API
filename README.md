@@ -1,8 +1,8 @@
 # Fake-Zertifikatshop API
 
 ### Von
-- **Gespensterkind**
-- **0xMax42**
+- [Gespensterkind](https://github.com/gespensterkind)
+- [0xMax42](https://github.com/0xMax42)
 
 ### Voraussetzungen
 
