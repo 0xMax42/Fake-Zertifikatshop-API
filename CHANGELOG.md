@@ -6,7 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### 🚀 Features
 
+- *(backend)* Add custom Swagger UI and static file serving - (142b7c6)
 - *(docker)* Add example docker-compose configuration - (45868c1)
+
+### ⚙️ Miscellaneous Tasks
+
+- Relocate OpenAPI spec to static directory - (92ff609)
 
 ## [0.4.0] - 2025-05-26
 
