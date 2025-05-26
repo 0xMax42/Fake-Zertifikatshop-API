@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException, Path, Body, Depends
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from backend.admin import setup_admin
 from backend.models import Product, ProductCreate
 from sqlmodel import select, Session
 from backend.database import get_session, init_db
-from contextlib import asynccontextmanager
 from typing import List, AsyncGenerator
 
 # Main application file for the Fake-Zertifikatshop API
@@ -19,8 +19,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 app = FastAPI(title="Fake-Zertifikatshop API",
     lifespan=lifespan # type: ignore
 )
-# Middleware to handle CORS (Cross-Origin Resource Sharing)
+setup_admin(app)
 
+# Middleware to handle CORS (Cross-Origin Resource Sharing)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
