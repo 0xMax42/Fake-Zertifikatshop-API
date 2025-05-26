@@ -1,4 +1,4 @@
-from backend.models import Product
+from backend.models import Product, Stock
 from backend.database import get_session, init_db
 from sqlmodel import select
 
@@ -11,8 +11,8 @@ def seed_products():
         if existing:
             print("Products already exist in the database. Skipping seeding.")
             return
-        
-        # List of example product tuples: (name, short_desc, full_desc, stock, price)
+
+        # List of example product tuples: (name, short_desc, full_desc, stock_quantity, price)
         products = [
             ("Meister der Kaffeetrinkerei", "Für unermüdliche Bürosklaven",
              "Dieses Zertifikat bestätigt, dass du pro Tag mindestens 3 Kaffee trinkst.", 10, 15.99),
@@ -26,15 +26,18 @@ def seed_products():
              "Dieses Zertifikat ehrt deine Fähigkeit, Excel-Tabellen mit Magie zu füllen.", 15, 17.49)
         ]
 
-        for name, short_desc, full_desc, stock, price in products:
+        for name, short_desc, full_desc, quantity, price in products:
             product = Product(
                 name=name,
                 short_description=short_desc,
                 product_description=full_desc,
-                stock=stock,
                 price=price
             )
             session.add(product)
+            session.flush()  # ensure product.id is available
+
+            stock = Stock(quantity=quantity, product_id=product.id)
+            session.add(stock)
 
         session.commit()
         print("Products seeded successfully.")
